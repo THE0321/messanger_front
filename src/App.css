@@ -1,0 +1,39 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background-color: #ffffff;
+  transition: margin-right 0.3s ease;
+}
+
+.main-content.with-sidebar {
+  margin-right: 400px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .main-content.with-sidebar {
+    margin-right: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content.with-sidebar {
+    margin-right: 0;
+  }
+}
