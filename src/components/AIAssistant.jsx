@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { useTheme } from '../contexts/ThemeContext'
 import './AIAssistant.css'
 
 const AIAssistant = ({ isVisible = true }) => {
+  const { primaryColor } = useTheme()
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -56,7 +58,7 @@ const AIAssistant = ({ isVisible = true }) => {
             {message.type === 'ai' && (
               <div className="ai-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="10" fill="#4A90E2"/>
+                  <circle cx="12" cy="12" r="10" fill={primaryColor}/>
                   <path d="M12 8V16M8 12H16" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>

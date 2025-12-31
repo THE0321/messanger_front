@@ -18,3 +18,10 @@ body {
   height: 100vh;
 }
 
+/* CSS 변수 - 기본 색상 */
+:root {
+  --primary-color: #4A90E2;
+  --primary-color-hover: #357ABD;
+  --primary-color-bg: rgba(74, 144, 226, 0.1);
+}
+

@@ -16,7 +16,7 @@
 
 .open-drawer-button {
   padding: 10px 20px;
-  background-color: #4A90E2;
+  background-color: var(--primary-color, #4A90E2);
   color: white;
   border: none;
   border-radius: 6px;
@@ -28,7 +28,7 @@
 }
 
 .open-drawer-button:hover {
-  background-color: #357ABD;
+  background-color: var(--primary-color-hover, #357ABD);
 }
 
 .drawer-form {
@@ -62,7 +62,7 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #4A90E2;
+  border-color: var(--primary-color, #4A90E2);
 }
 
 .form-group textarea {
@@ -100,11 +100,11 @@
 }
 
 .save-button {
-  background-color: #4A90E2;
+  background-color: var(--primary-color, #4A90E2);
   color: white;
 }
 
 .save-button:hover {
-  background-color: #357ABD;
+  background-color: var(--primary-color-hover, #357ABD);
 }
 

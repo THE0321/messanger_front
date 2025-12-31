@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DetailDrawer from '../components/DetailDrawer'
+import Pagination from '../components/Pagination'
 import './Page.css'
 import './UserPage.css'
 
@@ -7,9 +8,10 @@ const UserPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [isNewUser, setIsNewUser] = useState(false)
 
   // 샘플 데이터
-  const [users] = useState([
+  const [users, setUsers] = useState([
     {
       id: 1,
       email: 'hong@example.com',
@@ -54,16 +56,99 @@ const UserPage = () => {
       isAdmin: false,
       isTeamLead: false,
       teams: []
+    },
+    {
+      id: 6,
+      email: 'jang@example.com',
+      name: '장수진',
+      phone: '010-6789-0123',
+      isAdmin: false,
+      isTeamLead: true,
+      teams: ['디자인팀']
+    },
+    {
+      id: 7,
+      email: 'yoon@example.com',
+      name: '윤서연',
+      phone: '010-7890-1234',
+      isAdmin: false,
+      isTeamLead: false,
+      teams: ['개발팀', '마케팅팀']
+    },
+    {
+      id: 8,
+      email: 'jung@example.com',
+      name: '정민호',
+      phone: '010-8901-2345',
+      isAdmin: true,
+      isTeamLead: false,
+      teams: ['기획팀']
+    },
+    {
+      id: 9,
+      email: 'han@example.com',
+      name: '한소희',
+      phone: '010-9012-3456',
+      isAdmin: false,
+      isTeamLead: false,
+      teams: []
+    },
+    {
+      id: 10,
+      email: 'lim@example.com',
+      name: '임동욱',
+      phone: '010-0123-4567',
+      isAdmin: false,
+      isTeamLead: true,
+      teams: ['개발팀', '기획팀']
+    },
+    {
+      id: 11,
+      email: 'shin@example.com',
+      name: '신지은',
+      phone: '010-1234-5679',
+      isAdmin: false,
+      isTeamLead: false,
+      teams: ['디자인팀', '마케팅팀']
+    },
+    {
+      id: 12,
+      email: 'oh@example.com',
+      name: '오준호',
+      phone: '010-2345-6780',
+      isAdmin: true,
+      isTeamLead: true,
+      teams: ['개발팀', '디자인팀', '기획팀']
     }
   ])
 
   const [userTeams, setUserTeams] = useState([])
   const [newTeamInput, setNewTeamInput] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
   const handleOpenDrawer = (user) => {
     setSelectedUser(user)
     setUserTeams([...user.teams])
     setNewTeamInput('')
+    setIsNewUser(false)
+    setIsDrawerOpen(true)
+  }
+
+  const handleCreateUser = () => {
+    const newUser = {
+      id: Date.now(), // 임시 ID
+      email: '',
+      name: '',
+      phone: '',
+      isAdmin: false,
+      isTeamLead: false,
+      teams: []
+    }
+    setSelectedUser(newUser)
+    setUserTeams([])
+    setNewTeamInput('')
+    setIsNewUser(true)
     setIsDrawerOpen(true)
   }
 
@@ -72,6 +157,7 @@ const UserPage = () => {
     setSelectedUser(null)
     setUserTeams([])
     setNewTeamInput('')
+    setIsNewUser(false)
   }
 
   const handleRemoveTeam = (teamToRemove) => {
@@ -102,6 +188,17 @@ const UserPage = () => {
       user.phone.includes(query)
     )
   })
+
+  // 페이지네이션 계산
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const paginatedUsers = filteredUsers.slice(startIndex, endIndex)
+
+  // 검색어 변경 시 첫 페이지로 리셋
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery])
 
   // 권한 배지 렌더링 함수
   const renderRoleBadges = (user) => {
@@ -151,6 +248,12 @@ const UserPage = () => {
             </svg>
           </button>
         </div>
+        <button className="create-user-button" onClick={handleCreateUser}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          유저 생성
+        </button>
       </div>
 
       {/* 유저 목록 테이블 */}
@@ -166,7 +269,7 @@ const UserPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user) => (
+            {paginatedUsers.map((user) => (
               <tr key={user.id} onClick={() => handleOpenDrawer(user)}>
                 <td>{user.email}</td>
                 <td>{user.name}</td>
@@ -191,25 +294,31 @@ const UserPage = () => {
           </tbody>
         </table>
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
       
       <DetailDrawer
         isOpen={isDrawerOpen}
         onClose={handleCloseDrawer}
-        title="User Details"
+        title={isNewUser ? "새 유저 생성" : "User Details"}
       >
         {selectedUser && (
           <div className="drawer-form">
             <div className="form-group">
               <label>이메일</label>
-              <input type="email" defaultValue={selectedUser.email} />
+              <input type="email" defaultValue={selectedUser.email || ''} placeholder="이메일을 입력하세요" />
             </div>
             <div className="form-group">
               <label>이름</label>
-              <input type="text" defaultValue={selectedUser.name} />
+              <input type="text" defaultValue={selectedUser.name || ''} placeholder="이름을 입력하세요" />
             </div>
             <div className="form-group">
               <label>전화번호</label>
-              <input type="tel" defaultValue={selectedUser.phone} />
+              <input type="tel" defaultValue={selectedUser.phone || ''} placeholder="전화번호를 입력하세요" />
             </div>
             <div className="form-group">
               <label>관리자 여부</label>

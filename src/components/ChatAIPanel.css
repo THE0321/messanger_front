@@ -1,51 +1,35 @@
-.ai-assistant {
+/* Right Panel - AI Assistant */
+.chat-ai-assistant {
   position: fixed;
   right: 0;
   top: 64px;
   width: 400px;
   height: calc(100vh - 64px);
-  max-height: calc(100vh - 64px);
-  background-color: #ffffff;
   border-left: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
-  z-index: 95;
+  background-color: #ffffff;
   overflow: hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 100;
 }
 
-.ai-assistant.visible {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.ai-assistant.hidden {
-  transform: translateX(100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.ai-assistant-header {
+.chat-ai-header {
   display: flex;
   align-items: center;
   padding: 16px 20px;
   border-bottom: 1px solid #e0e0e0;
-  background-color: #ffffff;
 }
 
-.ai-assistant-title {
+.chat-ai-title {
   font-size: 16px;
   font-weight: 600;
   color: #333;
   margin: 0;
 }
 
-.ai-assistant-messages {
+.chat-ai-messages {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -53,29 +37,29 @@
   min-height: 0;
 }
 
-.message {
+.ai-message {
   display: flex;
   gap: 12px;
   align-items: flex-start;
 }
 
-.message.user {
+.ai-message.user {
   flex-direction: row-reverse;
 }
 
-.message.user .message-content {
-  background-color: var(--primary-color, #4A90E2);
+.ai-message.user .ai-message-content {
+  background-color: #4A90E2;
   color: white;
   border-radius: 12px 12px 4px 12px;
 }
 
-.message.ai .message-content {
+.ai-message.ai .ai-message-content {
   background-color: #f5f5f5;
   color: #333;
   border-radius: 12px 12px 12px 4px;
 }
 
-.ai-icon {
+.ai-message-icon {
   width: 32px;
   height: 32px;
   flex-shrink: 0;
@@ -84,50 +68,33 @@
   justify-content: center;
 }
 
-.message-content {
+.ai-message-content {
   max-width: 70%;
   padding: 10px 14px;
   font-size: 14px;
   line-height: 1.5;
 }
 
-.message-content p {
+.ai-message-content p {
   margin: 0;
   word-wrap: break-word;
 }
 
-.ai-assistant-input {
+.chat-ai-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 16px 20px;
   border-top: 1px solid #e0e0e0;
   background-color: #ffffff;
 }
 
-.ai-input-field {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s ease;
-  margin-bottom: 8px;
-}
-
-.ai-input-field:focus {
-  border-color: var(--primary-color, #4A90E2);
-}
-
-.ai-input-field::placeholder {
-  color: #999;
-}
-
-.ai-input-actions {
+.chat-ai-input-actions-left {
   display: flex;
-  align-items: center;
   gap: 8px;
 }
 
-.ai-action-button {
+.chat-ai-action-button {
   width: 32px;
   height: 32px;
   display: flex;
@@ -140,48 +107,60 @@
   transition: background-color 0.2s ease;
 }
 
-.ai-action-button:hover {
+.chat-ai-action-button:hover {
   background-color: #f5f5f5;
 }
 
-.ai-send-button:hover {
-  background-color: var(--primary-color, #4A90E2);
+.chat-ai-input-field {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
 }
 
-.ai-send-button:hover svg {
-  stroke: white;
+.chat-ai-input-field:focus {
+  border-color: #4A90E2;
 }
 
-/* 스크롤바 스타일링 */
-.ai-assistant-messages::-webkit-scrollbar {
+.chat-ai-input-field::placeholder {
+  color: #999;
+}
+
+.chat-ai-send-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.chat-ai-send-button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Scrollbar styling */
+.chat-ai-messages::-webkit-scrollbar {
   width: 6px;
 }
 
-.ai-assistant-messages::-webkit-scrollbar-track {
+.chat-ai-messages::-webkit-scrollbar-track {
   background: #f5f5f5;
 }
 
-.ai-assistant-messages::-webkit-scrollbar-thumb {
+.chat-ai-messages::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 3px;
 }
 
-.ai-assistant-messages::-webkit-scrollbar-thumb:hover {
+.chat-ai-messages::-webkit-scrollbar-thumb:hover {
   background: #999;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 1024px) {
-  .ai-assistant {
-    width: 350px;
-  }
-}
-
-@media (max-width: 768px) {
-  .ai-assistant {
-    width: 100%;
-    right: 0;
-    left: 0;
-  }
 }
 

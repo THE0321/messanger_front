@@ -1,5 +1,9 @@
 .goal-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 24px;
+  gap: 12px;
 }
 
 .search-filter-bar {
@@ -7,6 +11,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px 0;
+  flex: 1;
 }
 
 .search-input-wrapper {
@@ -17,7 +22,7 @@
   background-color: #f5f5f5;
   border-radius: 8px;
   flex: 1;
-  max-width: 400px;
+  min-width: 200px;
 }
 
 .search-input-wrapper svg {
@@ -52,6 +57,30 @@
 
 .filter-button:hover {
   background-color: #e0e0e0;
+}
+
+.create-goal-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.create-goal-button:hover {
+  background-color: #357ABD;
+}
+
+.create-goal-button svg {
+  flex-shrink: 0;
 }
 
 .goal-table-container {
@@ -305,5 +334,206 @@
   background-color: #e0e0e0;
   color: #999;
   cursor: not-allowed;
+}
+
+/* 탭 스타일 */
+.goal-detail-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.goal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 12px;
+  margin-top: -4px;
+}
+
+.goal-tab {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.goal-tab:hover {
+  color: #4A90E2;
+  background-color: #f5f5f5;
+}
+
+.goal-tab.active {
+  color: #4A90E2;
+  border-bottom-color: #4A90E2;
+  background-color: transparent;
+}
+
+.goal-tab-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* 달성 이력 탭 */
+.achievement-history-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.achievement-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.achievement-form h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.add-achievement-button {
+  padding: 10px 24px;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.add-achievement-button:hover:not(:disabled) {
+  background-color: #357ABD;
+}
+
+.add-achievement-button:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.achievement-list h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.achievement-table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.achievement-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.achievement-table thead {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.achievement-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.achievement-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.achievement-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.achievement-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.achievement-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+.delete-achievement-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-achievement-button:hover {
+  background-color: #f0f0f0;
+}
+
+.no-achievement-message {
+  padding: 40px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+/* 그래프 탭 */
+.graph-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.graph-tab h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.graph-container {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.goal-chart {
+  width: 100%;
+  min-width: 400px;
+  height: 250px;
+}
+
+.no-graph-message {
+  padding: 60px 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
 }
 
